@@ -28,6 +28,7 @@ const StyledProductContainer = styled.div`
         grid-template-columns: repeat(1, 1fr); 
     }
 `;
+
 export const ProductCards:React.FunctionComponent = ()=>{
     return(
         <StyledProductContainer className="Product-Container">
