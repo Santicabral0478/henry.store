@@ -1,0 +1,49 @@
+/* Reset CSS */
+
+/* Ajustes generales */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Reiniciar estilos de elementos específicos */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+    padding: 0;
+}
+
+/* Reiniciar estilos de elementos específicos */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Ajustes de tipografía */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Otras configuraciones */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
