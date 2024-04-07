@@ -6,8 +6,8 @@ import { ProductCards } from "@/components/ProductCards";
 export default function Home() {
   return (
     <div className="">
-      <NavBar/>
-      <ProductCards/>
+      <NavBar />
+      <ProductCards />
     </div>
   );
 }

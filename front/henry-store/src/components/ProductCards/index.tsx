@@ -1,8 +1,9 @@
-import styled from "styled-components"
-import Card from "../Card/index";
-import { products } from "./products";
-import React from "react";
-import { IProduct } from "../Card/types";
+// components/ProductCards/index.tsx
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import { fetchData } from '../ProductCards/ProductCardsServer';
+import { Card } from '../Card';
+import { IProduct } from './types';
 
 const StyledProductContainer = styled.div`
     display: grid;
@@ -29,16 +30,26 @@ const StyledProductContainer = styled.div`
     }
 `;
 
-export const ProductCards:React.FunctionComponent = ()=>{
-    return(
-        <StyledProductContainer className="Product-Container">
-            {
-                products.map((product: IProduct): React.ReactNode=>{
-                    return(
-                        <Card key={product.id} {...product}/>
-                    )
-                })
-            }
-        </StyledProductContainer>
-    )
-}
+export const ProductCards = () => {
+  const [products, setProducts] = useState<IProduct[]>([]); // Inicializa products con un array vacío de tipo IProduct
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await fetchData();
+      setProducts(data);
+    };
+    fetchProducts();
+  }, []);
+
+  console.log(products);
+
+  return (
+    <StyledProductContainer className="product-cards">
+      {products.map((product: IProduct) => (
+        <Card key={product.id} {...product} />
+      ))}
+    </StyledProductContainer>
+  );
+};
+
+

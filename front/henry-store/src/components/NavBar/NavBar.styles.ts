@@ -1,17 +1,16 @@
 import styled from "styled-components";
 
 export const StyledHmHeader = styled.div`
-    position: relative;
-    height: 64px;
-    background: #fffae9;
+    /* height: 190px; */
+    background: red;
     line-height: 64px;
-    -webkit-transition: all .6s ease-in-out;
-    -moz-transition: all .6s ease-in-out;
-    -ms-transition: all .6s ease-in-out;
-    -o-transition: all .6s ease-in-out;
     transition: all .6s ease-in-out;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     box-sizing: border-box;
+    background: rgb(237, 237, 237);
+    background: linear-gradient(0deg, rgb(237 237 237 / 0%) 0%, rgb(145 145 145 / 37%) 100%);
+    background: red;  
+    border-radius: 0 0 26px 26px ;
 `;
 
 export const StyleHmHeaderContainer = styled.div`
@@ -19,17 +18,35 @@ export const StyleHmHeaderContainer = styled.div`
 `;
 
 export const StyledHeaderMenu = styled.div`
-    display: flex;
+width: 100%;
+    padding: 1rem;
     height: 100%;
-    justify-content: space-between;
-    margin-inline: auto;
-    align-items: center;
     max-width: 1122px;
+    display: flex;
+    flex-direction: column;
+
+    .BurgMenuCart{
+      display: flex;
+      flex-direction: row;
+      padding: 1rem;
+      justify-content: space-between;
+    }
 `;
 
 export const StyledLogoCont = styled.div`
-margin-left: 3rem;
+margin-left: 1rem;
     width: 9.2rem;
+
+
+    button{
+      width: 2rem;
+      background: none;
+      border: none;
+    }
+
+    button img{
+      width: 100%;
+    }
 
     @media screen and (max-width: 400px){
         width: 2.2rem;
@@ -39,7 +56,7 @@ margin-left: 3rem;
 export const StyledHeaderLinks = styled.nav`
     display: flex;
     position: relative;
-    padding-inline: 2rem;
+    /* padding-inline: 2rem; */
 
     ul li a{
     text-decoration: none;
@@ -48,6 +65,27 @@ export const StyledHeaderLinks = styled.nav`
     margin-right: 30px;
     display: inline-block;
     }  
+
+    .icon-cart{
+      display: flex ;
+      align-items:center;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+
+    .icon-cart button{
+      background: none;
+      border: none;
+      width: 2.4rem;
+      display: flex;
+      flex-direction: row;
+      padding: 8px;
+      gap: 3px;
+    }
+
+    /* @media screen and(max-width: 400px){
+      grid-area: 1 / 2 / 2 / 3;
+    } */
 `;
 
 export const MobileButton = styled.button`
