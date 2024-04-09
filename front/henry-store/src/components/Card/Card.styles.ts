@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const StyledProductItem = styled.div`
     overflow: hidden;
     background: #fff;
-    border:1px solid #EEF5F9;
-    border-radius: 5px;   
+    border:2px solid  rgb(248, 248, 248);
+    border-radius: 15px;   
     transition: all .2s ease-in;
 
     &:hover{
@@ -38,6 +38,20 @@ export const StyledPInfo = styled.div`
     flex-direction: column;
     justify-content: space-between;
     height: calc(100% - 265px);
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%,   rgb(232, 232, 232) 100%);
+
+    .button-stockCont{
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: space-between;
+
+        span{
+            font-size: 10px;
+        }
+    }
 `;
 
 export const StyledTitleProduct = styled.h3`
@@ -66,13 +80,15 @@ export const StyledBtnCard = styled.button`
     display: inline-block;
     position: relative;
     padding: 12px 25px;
-    background: transparent;
     border: none;
     cursor: pointer;
     font-size: 14px;
     outline: 0;
-
-    background: #cf7500;
+    background: rgb(34,164,195);
+    background: rgb(195,166,34);
+    background: rgb(83,126,241);
+    background: linear-gradient(48deg, rgba(83,126,241,1) 0%, rgba(21,89,255,1) 100%);
+    border: 1px solid #7198ff;
     color: #fff;
     border-radius: 25px;
     text-align: center;

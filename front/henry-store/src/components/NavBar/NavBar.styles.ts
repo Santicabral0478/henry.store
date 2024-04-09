@@ -1,42 +1,51 @@
 import styled from "styled-components";
 
 export const StyledHmHeader = styled.div`
-    /* height: 190px; */
+    transition: all .4s ease-in;
     background: red;
     line-height: 64px;
     transition: all .6s ease-in-out;
-    /* margin-bottom: 20px; */
     box-sizing: border-box;
-    background: rgb(237, 237, 237);
-    background: linear-gradient(0deg, rgb(237 237 237 / 0%) 0%, rgb(145 145 145 / 37%) 100%);
-    background: red;  
+    background: rgb(20,20,20);
+    background: linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%); 
     border-radius: 0 0 26px 26px ;
+    box-shadow: 0px 0px 26px -8px rgba(0,0,0,0.75);
+
+    @media screen and (min-width: 500px){
+      border-radius: 0px;
+    }
 `;
 
 export const StyleHmHeaderContainer = styled.div`
     height: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
 `;
 
 export const StyledHeaderMenu = styled.div`
-width: 100%;
+    width: 100%;
     padding: 1rem;
     height: 100%;
-    max-width: 1122px;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
+    margin-inline: auto;
 
     .BurgMenuCart{
       display: flex;
       flex-direction: row;
-      padding: 1rem;
       justify-content: space-between;
+      align-items: center;
+      margin-bottom: .5rem;
     }
 `;
 
 export const StyledLogoCont = styled.div`
-margin-left: 1rem;
-    width: 9.2rem;
-
+    width: 13.5rem;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem; 
 
     button{
       width: 2rem;
@@ -46,11 +55,34 @@ margin-left: 1rem;
 
     button img{
       width: 100%;
+      filter: invert(100%);
     }
 
-    @media screen and (max-width: 400px){
-        width: 2.2rem;
+    .logoHenryImg{
+        width: 9.4rem;
+        height: 1.8rem;
     }
+
+    @media screen and (max-width: 500px){
+      width: 10.5rem;
+      gap: 1rem;
+      align-items: center;
+
+      .logoHenryImg{
+        width: 7.4rem;
+        height: 1.1rem;
+      }
+
+    @media screen and (max-width: 500px){
+      width: 10.5rem;
+      gap: 1rem;
+      align-items: center;
+
+      .logoHenryImg{
+        width: 5.4rem;
+      }
+    }
+  }
 `;
 
 export const StyledHeaderLinks = styled.nav`
@@ -60,7 +92,7 @@ export const StyledHeaderLinks = styled.nav`
 
     ul li a{
     text-decoration: none;
-    color: #000;
+    color: #fff;
     font-size: 15px;
     margin-right: 30px;
     display: inline-block;
@@ -70,7 +102,7 @@ export const StyledHeaderLinks = styled.nav`
       display: flex ;
       align-items:center;
       justify-content: center;
-      gap: 1.2rem;
+      gap: 2%;
     }
 
     .icon-cart button{
@@ -83,9 +115,13 @@ export const StyledHeaderLinks = styled.nav`
       gap: 3px;
     }
 
-    /* @media screen and(max-width: 400px){
-      grid-area: 1 / 2 / 2 / 3;
-    } */
+    .icon-cart button img{
+      filter: invert(100%);
+    }
+
+    .icon-cart button span{
+      color: #fff;
+    }
 `;
 
 export const MobileButton = styled.button`
@@ -99,22 +135,18 @@ export const MobileButton = styled.button`
 export const UlLinksOcult = styled.ul`
   display: flex;
 
+  .offerLink{
+    display: flex;
+    gap: .4rem;
+    flex-direction: row;
+    color: #f63120;
+    align-items: center;
+  }
+
+  .offerStar{
+    width: .9rem;
+    height: .9rem;
+  }
   @media screen and (max-width: 700px) {
     display: none;
   }`;
-
-export const ImgLogoResponsive= styled.img`
-    display: none;
-
-    @media screen and (max-width: 400px) {
-    display: block;
-    width: 100%;
-}`;
-
-export const ImgLogo = styled.img`
-    display: block;
-    width: 100%;
-
-    @media screen and (max-width: 400px) {
-    display: none;
-}`;

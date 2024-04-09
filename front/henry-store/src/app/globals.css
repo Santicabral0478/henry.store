@@ -1,4 +1,7 @@
 /* Reset CSS */
+body{
+    background: rgb(232, 232, 232);
+}
 
 /* Ajustes generales */
 *,
