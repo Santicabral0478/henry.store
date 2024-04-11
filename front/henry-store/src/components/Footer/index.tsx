@@ -4,8 +4,7 @@ import "./style.css";
 export const Footer:React.FunctionComponent = ()=>{
 
     return(
-        <footer>
-
+        <footer className="footer-gradient">
             <div className="footer-category">
     
           <div className="container">

@@ -36,7 +36,6 @@ export const StyledHeaderMenu = styled.div`
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: .5rem;
     }
 `;
 
@@ -88,6 +87,7 @@ export const StyledLogoCont = styled.div`
 export const StyledHeaderLinks = styled.nav`
     display: flex;
     position: relative;
+    align-items: center;
     /* padding-inline: 2rem; */
 
     ul li a{
@@ -110,6 +110,8 @@ export const StyledHeaderLinks = styled.nav`
       border: none;
       width: 2.4rem;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       flex-direction: row;
       padding: 8px;
       gap: 3px;
@@ -117,6 +119,7 @@ export const StyledHeaderLinks = styled.nav`
 
     .icon-cart button img{
       filter: invert(100%);
+      height: 23px;
     }
 
     .icon-cart button span{

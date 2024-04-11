@@ -1,5 +1,6 @@
 import { IProduct } from "./types";
 import React from "react";
+import Link from "next/link";
 
 import {StyledProductItem, StyledPCover, StyledImgProduct, StyledPInfo, StyledTitleProduct, StyledPrice, StyledPriceContent, StyledBtnCard} from './Card.styles'
 
@@ -42,9 +43,12 @@ export const Card: React.FunctionComponent<IProduct> = ({ ...product }) => {
           </StyledPrice>
           <div className="button-stockCont">
             <span>stock: {product.stock}</span>
-            <StyledBtnCard className="hm-btn btn-primary uppercase">
-              Buy
-            </StyledBtnCard>
+
+            <Link href={`http://localhost:3000/products/${product.id}`}>
+              <StyledBtnCard className="hm-btn btn-primary uppercase" >
+                Buy
+              </StyledBtnCard>
+            </Link>
           </div>
         </StyledPInfo>
       </StyledProductItem>

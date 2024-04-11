@@ -38,7 +38,10 @@
   }
   
   
-  .container { padding: 0 15px; }
+  .container { 
+    padding: 0 15px; 
+    margin-inline: auto;
+  }
   
   .has-scrollbar { padding-bottom: 5px; }
   
@@ -256,7 +259,6 @@
   
     .container {
       max-width: 750px;
-      margin: auto;
     }
   
   

@@ -7,7 +7,7 @@ import { ProductCards } from "@/components/ProductCards";
 
 export default function Home() {
   return (
-    <div className="">
+    <div>
       <NavBar />
       <Banner/>
       <ProductCards />
