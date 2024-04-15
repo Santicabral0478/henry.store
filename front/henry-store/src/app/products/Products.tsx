@@ -1,7 +1,14 @@
+"use client"
+import { Footer } from "@/components/Footer";
+import { NavBar } from "@/components/NavBar";
+import { ProductCards } from "@/components/ProductCards";
+
 export const Products = ()=>{
     return(
-        <div className="bg-red-300">
-            Bro you're in Products view/screen
+        <div className="">
+            <NavBar/>
+            <ProductCards/>
+            <Footer/>
         </div>
     )
 }

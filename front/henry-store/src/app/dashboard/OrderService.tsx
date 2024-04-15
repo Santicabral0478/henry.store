@@ -1,6 +1,5 @@
 // http://localhost:3001/users/orders
 import { IProduct } from "@/components/Card/types";
-import { headers } from "next/headers";
 
 type Order = {
     id: 1,
@@ -9,17 +8,22 @@ type Order = {
     products: IProduct[]
 }
 
-export const getOrders = async (): Promise<Order[]> => {
+export const getOrders = async (token: string): Promise<Order[]> => {
+
+  if (!token) {
+    throw new Error('API URL or authorization token is not defined');
+  }
+
   try {
-    const response = await fetch("http://localhost:3001/users/orders", {
+    const response = await fetch(`http://localhost:3001/users/orders`, {
       headers: {
-        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMjc5OTM5Mn0.5huMdo4KaXsqturcNkKHz1zcG45hwh-mpwce8tnFhPs',
+        'Authorization': token,
       },  
     });
     
     const data = await response.json();
     return data;
-  } 
+  }  
   
   catch (error) {
     console.error("Error fetching orders:", error);

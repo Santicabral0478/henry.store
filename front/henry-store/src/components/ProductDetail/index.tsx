@@ -1,31 +1,90 @@
 import { IProduct } from "../Card/types";
-import React from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useAuth } from '@/context/authContext';
 import "./style.css"
 
 export const ProductDetail: React.FunctionComponent<IProduct> = ({ ...product }) => {  
+    const imagesRep: { [key: string]: string } = {
+      "iPhone 11": "https://www.iplace.com.uy/ccstore/v1/images/?source=/file/v2607343239221086555/products/100000165.00-iphone-11-apple-blanco-128gb-mhdj3lz-a.jpg",
+      "MacBook Air": "https://maximstore.com/wp-content/uploads/2023/01/macbook-air-midnight-gallery1-20220606.jpeg",
+      "iPad Pro": "https://maximstore.com/wp-content/uploads/2023/05/iPad_Pro_Wi-Fi_11_in_4th_generation_Space_Gray_PDP_Image_Position-1b_MXLA.jpg",
+      "Apple Watch Series 6": "https://qph.fs.quoracdn.net/main-qimg-1f23993fc0173d38afee14a2e7723b32",
+      "AirPods Pro": "https://maximstore.com/wp-content/uploads/2023/05/AIRPODS-PRO-2-1.jpeg",
+      "HomePod mini": "https://i0.wp.com/shop.litecorp.com.ar/wp-content/uploads/2021/11/HomePod_mini_White_Space_Gray_2-up_SCREEN__USEN-removebg-preview.png?fit=500%2C500&ssl=1",
+    };
+    
+    const isImageBroken = (url: string) => {
+      const img = new Image();
+      img.src = url;
+      return !img.complete || img.naturalWidth === 0;
+    };
+    
+    const brokenImageSrc = imagesRep[product.name];
+    
+    // Buy Info____________------------------------------------------------------------------------------------------
+
+    const auth = useAuth();
+    const token = auth ? auth.token : null;
+
+    const submitHandler = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => { // Cambiado el tipo de evento a React.MouseEvent<HTMLButtonElement, MouseEvent>
+        event.preventDefault();
+        try {
+            const headers: HeadersInit = {
+                "Content-Type": "application/json",
+            };
+            if (token) {
+                headers["Authorization"] = token;
+            } else {
+              window.location.href = '/login'; // Cambiar '/login' a la URL de tu página de inicio de sesión
+              return; // Detener la ejecución del resto del código
+          }
+            const response = await fetch("http://localhost:3001/orders", { 
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify({ products: [product.id] }) // Enviar el ID del producto que se está agregando al carrito
+              }
+            );
+            alert("Added product")
+            if (!response.ok) {
+                throw new Error("Failed to add to cart");
+            }
+            // Manejar la respuesta según sea necesario (por ejemplo, actualizar el estado del carrito)
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
     <div className=" py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="title-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/833px-Apple_logo_black.svg.png" alt="" />
+                        <h1>{product.name}</h1>
+                    </div>
             <div className="flex flex-col md:flex-row -mx-4">
                 <div className="md:flex-1 px-4">
-                    <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-                        <img className="w-full h-full object-cover border-gray-900 border-opacity-70 rounded-xl" src="https://cdn.pixabay.com/photo/2020/05/22/17/53/mockup-5206355_960_720.jpg" alt="Product Image"/>
+                    <div className="h-[460px] border-gray-400 rounded-3xl bg-gray-300 dark:bg-gray-700 mb-4">
+                        {isImageBroken(product.image) ? (
+                          <img className="w-full h-full object-cover border-opacity-70 border-gray-400 rounded-3xl" src={brokenImageSrc} alt={product.name} />
+                        ) : (
+                          <img className="w-full h-full object-cover border-opacity-70 border-gray-400 rounded-3xl"  src={product.image} alt={product.name} />
+                        )}
                     </div>
                 </div>
-                <div className="md:flex-1 px-4">
+                <div className="md:flex-1 px-4"> 
                     <div className="CountersNumericV4WProgress w-full h-44 mb-5 relative">
-                        <div className="bg-gray-100 w-full h-44 left-0 top-0 absolute border border-neutral-900 border-opacity-70 rounded-xl">
-                            <div className="AmountR top-[110px] absolute text-right text-black text-sm font-bold leading-tight" style={{right: "7%"}}>379</div>
-                            <div className="AmountL left-[24px] top-[110px] absolute text-black text-sm font-bold leading-tight">20.06.2024</div>
-                            <div className="ElementProgressBarsMedium w-full h-1 left-[24px] top-[86px] absolute">
+                        <div className="bg-gray-100 w-full h-44 left-0 top-0 absolute border border-opacity-70 border-gray-400 rounded-3xl">
+                            <div className="AmountR top-[110px] absolute text-right text-black text-sm font-bold leading-tight" style={{right: "7%"}}>{product.stock}</div>
+                            <div className="AmountL left-[24px] top-[110px] absolute text-black text-sm font-bold leading-tight">2024</div>
+                            <div className="ElementProgressBarsMedium w-10 h-1 left-[24px] top-[86px] absolute">
                               <div className="Bg h-1 left-0 top-0 static bg-white bg-opacity-90 rounded-sm" style={{width: "80%"}}></div>
                               <div className="Progress w-48 h-1 left-0 top-0 absolute bg-amber-300 rounded-sm"></div>
                             </div>
 
-                            <div className="SubtitleR top-[133px] absolute text-right text-zinc-500 text-xs font-medium leading-none" style={{right: "7%"}}>Days left</div>
-                            <div className="SubtitleL left-[24px] top-[133px] absolute text-zinc-500 text-xs font-medium leading-none">Expiration date</div>
-                            <div className="Amount left-[24px] top-[41px] absolute text-black text-lg font-extrabold leading-normal">$6,900.00</div>
-                            <div className="Title left-[24px] top-[15px] absolute text-zinc-500 text-sm font-normal leading-tight">Accured interest</div>
+                            <div className="SubtitleR top-[133px] absolute text-right text-zinc-500 text-xs font-medium leading-none" style={{right: "7%"}}>Stock</div>
+                            <div className="SubtitleL left-[24px] top-[133px] absolute text-zinc-500 text-xs font-medium leading-none">Total</div>
+                            <div className="Amount left-[24px] top-[41px] absolute text-black text-lg font-extrabold leading-normal">us$ {product.price}</div>
+                            <div className="Title left-[24px] top-[15px] absolute text-zinc-500 text-sm font-normal leading-tight">Total</div>
                         </div>
                     </div>
                     <div className="mb-4">
@@ -47,116 +106,13 @@ export const ProductDetail: React.FunctionComponent<IProduct> = ({ ...product })
 
                     <div className="flex -mx-2 mb-4 mt-4">
                         <div className="w-1/2 px-2">
-                            <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Cart</button>
+                            <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Buy</button>
                         </div>
                         <div className="w-1/2 px-2">
-                            <button className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">Add to Wishlist</button>
-                        </div>
+                            <button onClick={submitHandler} className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">Add to cart</button>
+                        </div> 
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div style={{display: "none"}} className="modal-gralcont">
-            <div className="form-gral">
-              <form className="form">
-                <div className="payment--options">
-                  <button name="paypal" type="button">
-                    <svg
-                      xmlSpace="preserve"
-                      viewBox="0 0 124 33"
-                      height="33px"
-                      width="124px"
-                      y="0px"
-                      x="0px"
-                      version="1.1"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* Path data */}
-                    </svg>
-                  </button>
-                  <button name="apple-pay" type="button">
-                    <svg
-                      xmlSpace="preserve"
-                      viewBox="0 0 512 210.2"
-                      height="39"
-                      width="80"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* Path data */}
-                    </svg>
-                  </button>
-                  <button name="google-pay" type="button">
-                    <svg
-                      fill="none"
-                      viewBox="0 0 80 39"
-                      height="39"
-                      width="80"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* Path data */}
-                    </svg>
-                  </button>
-                </div>
-                <div className="separator">
-                  <hr className="line" />
-                  <p>or pay using credit card</p>
-                  <hr className="line" />
-                </div>
-                <div className="credit-card-info--form">
-                  <div className="input_container">
-                    <label htmlFor="password_field" className="input_label">
-                      Card holder full name
-                    </label>
-                    <input
-                      id="password_field"
-                      className="input_field"
-                      type="text"
-                      name="input-name"
-                      title="Input title"
-                      placeholder="Enter your full name"
-                    />
-                  </div>
-                  <div className="input_container">
-                    <label htmlFor="password_field" className="input_label">
-                      Card Number
-                    </label>
-                    <input
-                      id="password_field"
-                      className="input_field"
-                      type="number"
-                      name="input-name"
-                      title="Input title"
-                      placeholder="0000 0000 0000 0000"
-                    />
-                  </div>
-                  <div className="input_container">
-                    <label htmlFor="password_field" className="input_label">
-                      Expiry Date / CVV
-                    </label>
-                    <div className="split">
-                      <input
-                        id="password_field"
-                        className="input_field"
-                        type="text"
-                        name="input-name"
-                        title="Expiry Date"
-                        placeholder="01/23"
-                      />
-                      <input
-                        id="password_field"
-                        className="input_field"
-                        type="number"
-                        name="cvv"
-                        title="CVV"
-                        placeholder="CVV"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <button className="purchase--btn">Checkout</button>
-              </form>
             </div>
         </div>
     </div>

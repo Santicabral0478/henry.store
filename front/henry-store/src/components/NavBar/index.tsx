@@ -1,36 +1,10 @@
-import styled from "styled-components"
+"use client"
 import { NavBarMobile } from "../NavBarMobile/index";
-import React, { useState } from "react";
-import { StyledHmHeader, StyleHmHeaderContainer, StyledHeaderMenu, StyledLogoCont, StyledHeaderLinks, MobileButton, UlLinksOcult} from "./NavBar.styles";
+import React, { useState, useEffect } from "react";
 import { CategoriesList } from "./CategoriesList";
+import Link from "next/link";
+import styled from "styled-components";
 import "./style.css"
-
-const StyledBtnSearck = styled.button`
-    border: none;
-    width: 19%;
-    height: 100%;
-    background-color: #d0d0d0;
-    margin-left: -1px;
-    border-radius: 0 25px 25px 0;
-    cursor: pointer;
-
-    img{
-        width: 74%;
-        min-width: .6rem;
-        filter: invert(100%);
-        background-color: #d4d4d4;
-        padding: 6px 10px;
-        border-radius: 15px;
-        margin-inline: auto;
-    }
-`;
-
-const StyledSupGradient = styled.div`
-    width: 100%;
-    height: .3rem;
-    background: rgb(231,245,133);
-    background: linear-gradient(90deg, rgba(231,245,133,1) 0%, rgba(255,253,45,1) 26%, rgba(253,205,29,1) 50%, rgba(252,92,92,1) 100%);
-`;
 
 export const NavBar:React.FunctionComponent = ()=>{
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -39,35 +13,63 @@ export const NavBar:React.FunctionComponent = ()=>{
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const [token, setToken] = useState<string | null>(null);
+
+    useEffect(() => {
+      const userToken = localStorage.getItem("userToken");
+      if (userToken) {
+        setToken(userToken);
+      }
+    }, []);
+
+    const handleLogout = () => {
+      const logOut = window.confirm("Are you shure you want to log out?")
+      if(logOut){
+        localStorage.removeItem("userToken");
+        setToken(null);
+        window.location.reload();
+      } 
+    }; 
+
     return(
         <div className="NavBar-gral-cont">
-            <StyledHmHeader className="hm-header">
-                <StyledSupGradient></StyledSupGradient>
-                <StyleHmHeaderContainer className="container">
-                    <StyledHeaderMenu className="header-menu">
+            <div className="hm-header"> 
+                <div className="sup-gradient"></div>
+                <div className="container">
+                    <div className="header-menu">
                         <div className="BurgMenuCart">
-                            <StyledLogoCont className="hm-logo">
-                                <MobileButton onClick={toggleMenu} type="button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="" /></MobileButton>
+                            <div className="hm-logo">
+                                <button className="hm-mobilebutton" onClick={toggleMenu} type="button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="" /></button>
                                 <img className="logoHenryImg" src="https://henry-social-resources.s3-sa-east-1.amazonaws.com/henry-landing/assets/Henry/logo-white.png" alt="" />
-                            </StyledLogoCont>
-                            <StyledHeaderLinks className="hm-menu">
-                                <UlLinksOcult>
+                            </div>
+                            <div className="hm-menu">
+                                <ul className="hm-ul">
                                     <li><a className="offerLink" href="http://"><img className="offerStar" src="https://cdn-icons-png.flaticon.com/512/275/275812.png" alt=""/><b>Offers</b></a></li>
-                                    <li><a href="http://">Campañas</a></li>
+                                    <li>
+                                        <Link href={`http://localhost:3000`}>
+                                            <span>Home</span>
+                                        </Link>
+                                    </li>
                                     <li><a href="http://">Nosotros</a></li>
                                     <li><a href="http://">Contacto</a></li>
-                                </UlLinksOcult>
+                                </ul>
                                 <div className="icon-cart">
-                                    <button>
-                                        <img src="https://static-00.iconduck.com/assets.00/profile-icon-512x512-w0uaq4yr.png" alt="" />
-                                    </button>
-
-                                    <button>
-                                        <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="" />
-                                        <span>0</span>
-                                    </button>
+                                    <Link href={`http://localhost:3000/dashboard`}>
+                                        <button>
+                                            <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="" />
+                                            <span>0</span>
+                                        </button>
+                                    </Link>
+                                    {token && (
+                                        <button className="logout-button" onClick={handleLogout}>Logout</button>
+                                    )}
+                                    {!token && (
+                                        <Link href={"http://localhost:3000/login"} >
+                                            <button className="login-button" >Login</button>
+                                        </Link>
+                                    )}
                                 </div>
-                            </StyledHeaderLinks>
+                            </div>
                         </div>
                         <div className="searchCategory">
                             <div className="searchBox">              
@@ -99,9 +101,9 @@ export const NavBar:React.FunctionComponent = ()=>{
                             </div>
                             <CategoriesList/>
                         </div>
-                    </StyledHeaderMenu>
-                </StyleHmHeaderContainer>
-            </StyledHmHeader>
+                    </div>
+                </div>
+            </div>
             {isMenuOpen && <NavBarMobile onCloseMenu={toggleMenu} />}
         </div>
     )

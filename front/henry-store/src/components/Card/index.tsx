@@ -1,11 +1,9 @@
 import { IProduct } from "./types";
 import React from "react";
 import Link from "next/link";
-
-import {StyledProductItem, StyledPCover, StyledImgProduct, StyledPInfo, StyledTitleProduct, StyledPrice, StyledPriceContent, StyledBtnCard} from './Card.styles'
+import "./style.css"
 
 export const Card: React.FunctionComponent<IProduct> = ({ ...product }) => {
-    // Objeto que contiene las URLs de las imágenes de reemplazo para cada producto
     const imagesRep: { [key: string]: string } = {
       "iPhone 11": "https://static-jaymart.com/ecom/public/1mNO8ihVNEBs7fmhrbkWpuTQy6Z.jpg",
       "MacBook Air": "https://www.ultigiz.cl/wp-content/uploads/2022/11/Apple_MacBook_Air_13_M2_MLY43CIA_3.png",
@@ -15,43 +13,40 @@ export const Card: React.FunctionComponent<IProduct> = ({ ...product }) => {
       "HomePod mini": "https://acdn.mitiendanube.com/stores/002/092/809/products/homepoddd-071-98044bdea46ba3b7c916626491351449-240-0.jpg",
     };
   
-    // Función para comprobar si la imagen está rota o no existe
     const isImageBroken = (url: string) => {
       const img = new Image();
       img.src = url;
       return !img.complete || img.naturalWidth === 0;
     };
   
-    // Ruta de la imagen de reemplazo para el producto actual
     const brokenImageSrc = imagesRep[product.name];
   
     return (
-      <StyledProductItem className="product-item">
-        <StyledPCover className="p-portada">
-          {/* Lógica condicional para mostrar la imagen del producto o la imagen de reemplazo */}
+      <div className="product-item">
+        <div className="p-cover">
           {isImageBroken(product.image) ? (
-            <StyledImgProduct src={brokenImageSrc} alt="" />
+            <img className="img-cover" src={brokenImageSrc} alt={product.name} />
           ) : (
-            <StyledImgProduct src={product.image} alt="" />
+            <img className="img-cover" src={product.image} alt={product.name} />
           )}
-        </StyledPCover>
+        </div>
   
-        <StyledPInfo className="p-info">
-          <StyledTitleProduct>{product.name}</StyledTitleProduct>
-          <StyledPrice className="precio">
-            <StyledPriceContent>USD/~ ${product.price}</StyledPriceContent>
-          </StyledPrice>
+        <div className="p-info">
+          <h3 className="title-product">{product.name}</h3>
+          <div className="price-cont">
+            <span className="price">USD/~ ${product.price}</span>
+          </div>
           <div className="button-stockCont">
             <span>stock: {product.stock}</span>
 
             <Link href={`http://localhost:3000/products/${product.id}`}>
-              <StyledBtnCard className="hm-btn btn-primary uppercase" >
+              <button className="button-buy" >
                 Buy
-              </StyledBtnCard>
+              </button>
             </Link>
           </div>
-        </StyledPInfo>
-      </StyledProductItem>
+        </div>
+      </div>
     );
   };
   
