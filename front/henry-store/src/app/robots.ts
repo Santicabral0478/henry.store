@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots{
                 disallow: ['/dashboard']
             },
         ],
-        sitemap: `${process.env.API_URL}/sitemap.xml`,
+        sitemap: `${process.env.NEXT_PUBLIC_API_URL}/sitemap.xml`,
     }
 }

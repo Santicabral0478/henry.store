@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { backurl } from "@/app/BACK_URL";
 
 interface UserData {
   email: string;
@@ -28,7 +29,7 @@ export const RegisterForm: React.FC = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     try {
-      const response = await fetch(`${process.env.BACKEND_API_URL}/users/register`, {
+      const response = await fetch(`${backurl.apiurl}/users/register`, {
         method: "POST",
         headers: {
           'ngrok-skip-browser-warning': 'true',

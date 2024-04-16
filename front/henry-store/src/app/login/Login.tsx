@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import React from 'react';
 
-
 export const Login = () => {
   const [token, setToken] = useState<string | null>(null);
 
