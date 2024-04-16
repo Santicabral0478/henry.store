@@ -28,7 +28,7 @@ export const RegisterForm: React.FC = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     try {
-      const response = await fetch(`${process.env.BACKEND_API_URLL}/users/register`, {
+      const response = await fetch(`${process.env.BACKEND_API_URL}/users/register`, {
         method: "POST",
         headers: {
           'ngrok-skip-browser-warning': 'true',

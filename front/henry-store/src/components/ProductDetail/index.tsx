@@ -40,7 +40,7 @@ export const ProductDetail: React.FunctionComponent<IProduct> = ({ ...product })
                 return;
             }
     
-            const response = await fetch(`${process.env.BACKEND_API_URLL}/orders`, { 
+            const response = await fetch(`${process.env.BACKEND_API_URL}/orders`, { 
                 method: "POST",
                 headers: headers, // Usar los headers combinados
                 body: JSON.stringify({ products: [product.id] })

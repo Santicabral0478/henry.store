@@ -14,7 +14,7 @@ export const getOrders = async (token: string): Promise<Order[]> => {
   }
 
   try {
-    const response = await fetch(`${process.env.BACKEND_API_URLL}/users/orders`, {
+    const response = await fetch(`${process.env.BACKEND_API_URL}/users/orders`, {
       headers: {
         'ngrok-skip-browser-warning': 'true',
         'Authorization': token,

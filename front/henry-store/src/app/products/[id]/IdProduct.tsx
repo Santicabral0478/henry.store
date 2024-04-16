@@ -12,7 +12,7 @@ type Params = {
 
 const getProduct = async (id: string) => {
     try {
-        const response = await fetch(`${process.env.BACKEND_API_URLL}/products`, {
+        const response = await fetch(`${process.env.BACKEND_API_URL}/products`, {
             headers: {
                 'ngrok-skip-browser-warning': 'true'
             }

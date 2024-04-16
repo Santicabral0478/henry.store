@@ -30,7 +30,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ token, setToken }) => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     try {
-      const response = await fetch(`${process.env.BACKEND_API_URLL}/users/login`, { 
+      const response = await fetch(`${process.env.BACKEND_API_URL}/users/login`, { 
         method: "POST",
         headers: {
           'ngrok-skip-browser-warning': 'true',
