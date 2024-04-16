@@ -26,33 +26,38 @@ export const ProductDetail: React.FunctionComponent<IProduct> = ({ ...product })
     const auth = useAuth();
     const token = auth ? auth.token : null;
 
-    const submitHandler = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => { // Cambiado el tipo de evento a React.MouseEvent<HTMLButtonElement, MouseEvent>
+    const submitHandler = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
         event.preventDefault();
         try {
             const headers: HeadersInit = {
                 "Content-Type": "application/json",
+                ...(token && { "Authorization": token }), // Agregar la autorización solo si hay un token
+                "ngrok-skip-browser-warning": "true", // Agregar el encabezado ngrok-skip-browser-warning
             };
-            if (token) {
-                headers["Authorization"] = token;
-            } else {
-              window.location.href = '/login'; // Cambiar '/login' a la URL de tu página de inicio de sesión
-              return; // Detener la ejecución del resto del código
-          }
-            const response = await fetch("http://localhost:3001/orders", { 
+    
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+    
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, { 
                 method: "POST",
-                headers: headers,
-                body: JSON.stringify({ products: [product.id] }) // Enviar el ID del producto que se está agregando al carrito
-              }
-            );
-            alert("Added product")
+                headers: headers, // Usar los headers combinados
+                body: JSON.stringify({ products: [product.id] })
+            });
+    
+            alert("Added product");
+    
             if (!response.ok) {
                 throw new Error("Failed to add to cart");
             }
-            // Manejar la respuesta según sea necesario (por ejemplo, actualizar el estado del carrito)
+    
+            // Manejar la respuesta según sea necesario
         } catch (error) {
             console.error("Error:", error);
         }
     };
+    
 
     return (
     <div className=" py-8">

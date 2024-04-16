@@ -4,7 +4,7 @@ import { IProduct } from "@/components/Card/types";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const products: IProduct[] = await fetchData();
-    const apiUrl = "http://localhost:3000/";
+    const apiUrl = `${process.env.API_URL}/`;
 
     const productRoutes = products.map((product)=>({
         url: `${apiUrl}/products/${product.id}`,

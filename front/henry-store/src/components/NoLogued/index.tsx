@@ -64,7 +64,7 @@ export const NoLogued: React.FunctionComponent= () => {
                 <p>Identificate y comienza a comprar</p>
             </div>
             <div className="nolog-button">
-                <Link href={"http://localhost:3000/login"}>
+                <Link href={`${process.env.API_URL}/login`}>
                     <button>Login</button>
                 </Link>
             </div>

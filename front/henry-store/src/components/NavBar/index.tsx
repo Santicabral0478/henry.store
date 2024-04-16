@@ -46,7 +46,7 @@ export const NavBar:React.FunctionComponent = ()=>{
                                 <ul className="hm-ul">
                                     <li><a className="offerLink" href="http://"><img className="offerStar" src="https://cdn-icons-png.flaticon.com/512/275/275812.png" alt=""/><b>Offers</b></a></li>
                                     <li>
-                                        <Link href={`http://localhost:3000`}>
+                                        <Link href={`${process.env.API_URL}`}>
                                             <span>Home</span>
                                         </Link>
                                     </li>
@@ -54,7 +54,7 @@ export const NavBar:React.FunctionComponent = ()=>{
                                     <li><a href="http://">Contacto</a></li>
                                 </ul>
                                 <div className="icon-cart">
-                                    <Link href={`http://localhost:3000/dashboard`}>
+                                    <Link href={`/dashboard`}>
                                         <button>
                                             <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="" />
                                             <span>0</span>
@@ -64,7 +64,7 @@ export const NavBar:React.FunctionComponent = ()=>{
                                         <button className="logout-button" onClick={handleLogout}>Logout</button>
                                     )}
                                     {!token && (
-                                        <Link href={"http://localhost:3000/login"} >
+                                        <Link href={`${process.env.API_URL}/login`} >
                                             <button className="login-button" >Login</button>
                                         </Link>
                                     )}

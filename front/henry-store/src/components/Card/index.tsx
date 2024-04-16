@@ -39,8 +39,8 @@ export const Card: React.FunctionComponent<IProduct> = ({ ...product }) => {
           <div className="button-stockCont">
             <span>stock: {product.stock}</span>
 
-            <Link href={`http://localhost:3000/products/${product.id}`}>
-              <button className="button-buy" >
+            <Link href={`/products/${product.id}`}>
+              <button className="button-buy">
                 Buy
               </button>
             </Link>

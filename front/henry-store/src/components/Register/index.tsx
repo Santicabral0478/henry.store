@@ -28,9 +28,10 @@ export const RegisterForm: React.FC = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/users/register", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/register`, {
         method: "POST",
         headers: {
+          'ngrok-skip-browser-warning': 'true',
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
@@ -110,7 +111,7 @@ export const RegisterForm: React.FC = () => {
             </div>
             <div className="flex items-center justify-between mt-4">
               <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-              <Link href={"http://localhost:3000/login"}>                
+              <Link href={`${process.env.API_URL}/login`}>                
                 <span className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">Login</span>
               </Link>
               <span className="w-1/5 border-b dark:border-gray-400 md:w-1/4"></span>

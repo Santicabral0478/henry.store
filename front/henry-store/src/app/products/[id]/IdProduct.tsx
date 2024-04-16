@@ -12,7 +12,11 @@ type Params = {
 
 const getProduct = async (id: string) => {
     try {
-        const response = await fetch(`http://localhost:3001/products`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+            headers: {
+                'ngrok-skip-browser-warning': 'true'
+            }
+        });
         const data = await response.json();
 
         // Buscar el producto por ID

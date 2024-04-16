@@ -1,4 +1,3 @@
-// http://localhost:3001/users/orders
 import { IProduct } from "@/components/Card/types";
 
 type Order = {
@@ -15,8 +14,9 @@ export const getOrders = async (token: string): Promise<Order[]> => {
   }
 
   try {
-    const response = await fetch(`http://localhost:3001/users/orders`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/orders`, {
       headers: {
+        'ngrok-skip-browser-warning': 'true',
         'Authorization': token,
       },  
     });

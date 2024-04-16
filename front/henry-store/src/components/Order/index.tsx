@@ -233,7 +233,7 @@ export const Order: React.FunctionComponent<OrderProps> = ({ orders }) => {
                                         <div className="info-product-card-cont">
                                             <h3><b>{product.name}</b></h3>
                                             <p>us$ {product.price}</p>
-                                            <Link href={`http://localhost:3000/products/${product.id}`}>
+                                            <Link href={`/products/${product.id}`}>
                                               <button className="button-details" >
                                                 more details
                                               </button>
